@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: westafricanproduce
+    runtime: node
+    plan: starter
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: node wap-server/production.js
+    healthCheckPath: /api/wap/products
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: APP_URL
+        value: https://westafricanproduce.baglini.co

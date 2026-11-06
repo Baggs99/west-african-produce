@@ -121,26 +121,6 @@ function PackShot({ product, src, alt = '', size = 'sm', decorative = true }) {
   )
 }
 
-function HeroOption({ product, selected, onSelect }) {
-  const badge = AVAILABILITY[product.availability] ?? AVAILABILITY.in_stock
-  return (
-    <button
-      type="button"
-      role="radio"
-      aria-checked={selected}
-      onClick={onSelect}
-      className={`wap-size-option ${selected ? 'is-selected' : ''}`}
-    >
-      <PackShot product={product} size="sm" />
-      <span>
-        <span className="block text-xs font-extrabold uppercase tracking-[0.18em]">{product.unit}</span>
-        <span className="mt-1 block font-display text-2xl font-extrabold tabular-nums">{money(product.price_cents)}</span>
-        <span className={`mt-1 block text-xs font-bold ${selected ? 'text-wap-ink/70' : badge.className}`}>{badge.label}</span>
-      </span>
-    </button>
-  )
-}
-
 function liveProductMap(products) {
   return Object.fromEntries((products ?? []).map((product) => [product.sku, product]))
 }
@@ -174,6 +154,7 @@ function Hero({ products, cart, setQuantity, onReview, loadError }) {
     [volume, liveBySku],
   )
   const selectedProduct = packs.find((item) => item.pack === pack) ?? packs[0]
+  const badge = AVAILABILITY[selectedProduct?.availability] ?? AVAILABILITY.in_stock
   const canBuy = Boolean(selectedProduct?.sku && selectedProduct.availability !== 'sold_out')
   const inCart = selectedProduct?.sku && canBuy ? (cart[selectedProduct.sku] ?? 0) : 0
   const lineTotal = selectedProduct ? selectedProduct.price_cents * draftQty : 0
@@ -235,9 +216,30 @@ function Hero({ products, cart, setQuantity, onReview, loadError }) {
               </span>
             </p>
 
-            <div className="mt-4 grid gap-2 sm:grid-cols-2" role="radiogroup" aria-label="Bottle or case">
+            <div className="mt-4 grid items-center gap-4 border border-wap-ink/25 p-3 sm:grid-cols-[auto_1fr]">
+              <PackShot product={selectedProduct} size="md" decorative={false} alt={selectedProduct?.name} />
+              <div>
+                <p className="text-xs font-extrabold uppercase tracking-[0.18em]">
+                  {pack === 'case' ? `Case of ${volume.caseCount}` : volume.unit}
+                </p>
+                <p className="mt-1 font-display text-3xl font-extrabold tabular-nums">{money(selectedProduct?.price_cents ?? 0)}</p>
+                <p className={`mt-1 text-sm font-bold ${badge.className}`}>{badge.label}</p>
+              </div>
+            </div>
+
+            <div className="mt-3 grid grid-cols-2 border border-wap-ink" role="radiogroup" aria-label="Individual or case">
               {packs.map((product) => (
-                <HeroOption key={`${product.volumeId}-${product.pack}`} product={product} selected={product.pack === pack} onSelect={() => setPack(product.pack)} />
+                <button
+                  key={`${product.volumeId}-${product.pack}`}
+                  type="button"
+                  role="radio"
+                  aria-checked={product.pack === pack}
+                  onClick={() => setPack(product.pack)}
+                  className={`min-h-11 px-3 text-sm font-bold ${product.pack === pack ? 'bg-wap-ink text-wap-paper' : 'text-wap-ink hover:bg-wap-cream'}`}
+                >
+                  {product.pack === 'case' ? 'Case' : 'Individual'}
+                  <span className="ml-2 font-normal tabular-nums">{money(product.price_cents)}</span>
+                </button>
               ))}
             </div>
 

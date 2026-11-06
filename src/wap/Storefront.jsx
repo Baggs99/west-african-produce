@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
-import { brand, categories, palmCatalogProducts, palmVolumes, pillars, priceGuides, productFamilies, recipes, wholesale } from './content.js'
+import { brand, categories, palmCatalogProducts, palmVolumes, pillars, productFamilies, recipes, wholesale } from './content.js'
 import { MAX_QTY, cartLines, cartTotalCents, money, useCart } from './cart.js'
-import { PALM_FAMILY_SHOTS, packShotFor, packShotForSizeLabel } from './media.js'
+import { PALM_FAMILY_SHOTS, packShotFor } from './media.js'
 import { PalmMark } from './PalmMark.jsx'
 
 const AVAILABILITY = {
@@ -650,22 +650,10 @@ function WholesaleSection() {
             ))}
           </div>
           <div className="mt-8 border-t border-wap-paper/20 pt-5">
-            <p className="text-sm font-semibold text-wap-gold">Case pricing guide</p>
-            <div className="mt-4 space-y-3">
-              {priceGuides[0].rows.map(([name, qty, oneCase, volume]) => (
-                <div key={`${name}-${qty}`} className="grid grid-cols-[auto_1fr_auto] items-center gap-3 border-t border-wap-cream/12 pt-3 text-sm">
-                  <PackShot src={packShotForSizeLabel(name)} alt={name} size="xs" decorative={false} />
-                  <div>
-                    <p className="font-bold">{name}</p>
-                    <p className="text-wap-cream/55">{qty}</p>
-                  </div>
-                  <p className="text-right tabular-nums">
-                    {oneCase}
-                    <span className="block text-wap-gold">{volume}</span>
-                  </p>
-                </div>
-              ))}
-            </div>
+            <p className="text-sm font-semibold text-wap-gold">Case and pallet pricing</p>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-wap-paper/75">
+              Wholesale pricing depends on size, quantity, delivery location, and timing. Send the form with what you need and we will follow up with a quote.
+            </p>
           </div>
         </div>
 

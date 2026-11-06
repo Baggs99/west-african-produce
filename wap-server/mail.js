@@ -61,6 +61,21 @@ function receiptHtml({ confirmationNumber, customerName, lines, totalCents, ship
 </html>`
 }
 
+function refundHtml({ confirmationNumber, customerName, refundCents }) {
+  return `<!doctype html>
+<html>
+<body style="margin:0;background:#f7f1e4;font-family:Georgia,serif;color:#1f1610;">
+  <div style="max-width:560px;margin:0 auto;padding:32px 20px;">
+    <p style="margin:0;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#9c2e12;">${BRAND}</p>
+    <h1 style="margin:12px 0 8px;font-size:28px;">Your order was refunded.</h1>
+    <p style="margin:0 0 18px;font-size:16px;">Hi${customerName ? ` ${escapeHtml(customerName)}` : ''}. We refunded order <strong>${escapeHtml(confirmationNumber)}</strong>.</p>
+    <p style="margin:0;font-size:16px;">Refund amount: <strong>${dollars(refundCents)}</strong>.</p>
+    <p style="margin:28px 0 0;font-size:13px;color:#6b5e4e;">Stripe sends refunds back to the original payment method. Your bank or card issuer may take a few business days to show it. Questions: ${STAFF_INBOX}.</p>
+  </div>
+</body>
+</html>`
+}
+
 export async function sendPurchaseReceipt(order) {
   const client = resend()
   if (!client || !order?.customer_email) return { skipped: true }
@@ -84,5 +99,28 @@ export async function sendPurchaseReceipt(order) {
     order.idempotencyKey ? { idempotencyKey: order.idempotencyKey } : undefined,
   )
   if (error) throw new Error(error.message || 'Resend could not send the receipt.')
+  return { sent: true }
+}
+
+export async function sendRefundNotice(order) {
+  const client = resend()
+  if (!client || !order?.customer_email) return { skipped: true }
+
+  const refundCents = order.refund_amount_cents ?? order.total_cents
+  const { error } = await client.emails.send(
+    {
+      from: fromAddress(),
+      to: order.customer_email,
+      bcc: STAFF_INBOX,
+      subject: `Refund ${order.confirmation_number} · ${BRAND}`,
+      html: refundHtml({
+        confirmationNumber: order.confirmation_number,
+        customerName: order.customer_name,
+        refundCents,
+      }),
+    },
+    order.idempotencyKey ? { idempotencyKey: order.idempotencyKey } : undefined,
+  )
+  if (error) throw new Error(error.message || 'Resend could not send the refund notice.')
   return { sent: true }
 }

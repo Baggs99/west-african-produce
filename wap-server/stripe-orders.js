@@ -1,4 +1,5 @@
 import { HttpError, NEXT_STATUS, stripe } from './lib.js'
+import { sendRefundNotice } from './mail.js'
 
 export const WAP_META = 'wap'
 
@@ -62,6 +63,7 @@ export function orderFromSession(session) {
     staff_note: meta.staff_note || '',
     stripe_payment_intent_id: typeof session.payment_intent === 'string' ? session.payment_intent : session.payment_intent?.id,
     receipt_sent: meta.receipt_sent === '1',
+    refund_email_sent: meta.refund_email_sent === '1',
     wap_order_items: linesFrom(session),
   }
 }
@@ -87,6 +89,40 @@ export async function patchStripeOrder(sessionId, patch) {
   return orderFromSession(session)
 }
 
+export async function getStripeOrderByPaymentIntent(paymentIntentId) {
+  if (!paymentIntentId) return null
+  const sessions = await stripe().checkout.sessions.list({
+    limit: 100,
+    expand: ['data.line_items'],
+  })
+  const session = sessions.data.find((candidate) => {
+    const candidateIntent = typeof candidate.payment_intent === 'string' ? candidate.payment_intent : candidate.payment_intent?.id
+    return candidate.metadata?.[WAP_META] === '1' && candidateIntent === paymentIntentId
+  })
+  return session ? { session, order: orderFromSession(session) } : null
+}
+
+export async function notifyStripeRefund(sessionId, refund) {
+  const found = await getStripeOrder(sessionId)
+  if (!found) throw new HttpError(404, 'Order not found.')
+
+  const patch = { wap_status: 'refunded' }
+  if (!found.order.refund_email_sent) {
+    try {
+      const result = await sendRefundNotice({
+        ...found.order,
+        refund_amount_cents: refund?.amount ?? found.order.total_cents,
+        idempotencyKey: `wap-refund-${sessionId}-${refund?.id ?? 'manual'}`,
+      })
+      if (result.sent) patch.refund_email_sent = '1'
+    } catch (err) {
+      console.error('Could not send refund email', err)
+    }
+  }
+
+  return patchStripeOrder(sessionId, patch)
+}
+
 export async function advanceStripeOrder(sessionId, staffNote) {
   const { order } = (await getStripeOrder(sessionId)) ?? {}
   if (!order) throw new HttpError(404, 'Order not found.')
@@ -102,10 +138,14 @@ export async function refundStripeOrder(sessionId, staffNote) {
   const found = await getStripeOrder(sessionId)
   if (!found) throw new HttpError(404, 'Order not found.')
   if (found.order.stripe_payment_intent_id) {
-    await stripe().refunds.create({ payment_intent: found.order.stripe_payment_intent_id })
+    const refund = await stripe().refunds.create({ payment_intent: found.order.stripe_payment_intent_id })
+    await notifyStripeRefund(sessionId, refund)
+    return patchStripeOrder(sessionId, {
+      ...(staffNote !== undefined ? { staff_note: String(staffNote).slice(0, 500) } : {}),
+    })
   }
   return patchStripeOrder(sessionId, {
-    wap_status: found.order.stripe_payment_intent_id ? 'refunded' : 'cancelled',
+    wap_status: 'cancelled',
     ...(staffNote !== undefined ? { staff_note: String(staffNote).slice(0, 500) } : {}),
   })
 }

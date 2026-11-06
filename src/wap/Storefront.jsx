@@ -27,7 +27,7 @@ function mergeCommerceProducts(apiProducts) {
 }
 
 const HERO_PROOF = [
-  'Fruit from Sierra Leone smallholders',
+  'Fruit from small farms in Sierra Leone',
   'Filtered, bottled, and ready to cook',
   'Ships from Houston. Shipping calculated at checkout.',
 ]
@@ -203,7 +203,7 @@ function Hero({ products, cart, setQuantity, onReview, loadError }) {
               <div>
                 <p className="text-sm font-semibold text-wap-palm">Organic red palm oil</p>
                 <h1>Red palm oil, ready to cook.</h1>
-                <p className="mt-2 max-w-sm text-sm leading-relaxed text-wap-muted">From Sierra Leone smallholders, bottled for kitchens in the U.S.</p>
+                <p className="mt-2 max-w-sm text-sm leading-relaxed text-wap-muted">From small farms in Sierra Leone, bottled for kitchens in the U.S.</p>
               </div>
               {inCart > 0 && (
                 <button type="button" onClick={onReview} className="wap-btn wap-btn-ink min-h-10 px-4 py-2 text-sm">
@@ -343,7 +343,7 @@ function Story() {
       <div className="grid gap-12 md:grid-cols-[0.95fr_1.05fr]">
         <p className="text-sm font-semibold text-wap-palm md:col-span-2">Our farms</p>
         <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl">
-          Palm fruit from Sierra Leone smallholders.
+          Palm fruit from small farms in Sierra Leone.
         </h2>
         <div className="border-l-2 border-wap-palm pl-6 text-lg leading-relaxed text-wap-ink/80 md:pl-8">
           <p>

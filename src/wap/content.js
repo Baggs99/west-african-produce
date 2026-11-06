@@ -14,8 +14,8 @@ export const brand = {
 
 export const pillars = [
   {
-    title: 'Smallholder fruit',
-    body: 'Our red palm oil starts with fruit grown by small farm holders in Sierra Leone.',
+    title: 'Small-farm fruit',
+    body: 'Our red palm oil starts with fruit from small farms in Sierra Leone.',
   },
   {
     title: 'Filtered for the kitchen',

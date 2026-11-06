@@ -89,19 +89,19 @@ function Header({ count }) {
   ]
   return (
     <header className="sticky top-0 z-40 border-b border-wap-ink/10 bg-wap-paper/92 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4 md:px-10">
-        <a href="#top" className="inline-flex items-center gap-3 font-display text-xl font-semibold tracking-tight text-wap-ink">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:gap-5 sm:px-5 sm:py-4 md:px-10">
+        <a href="#top" className="inline-flex min-w-0 items-center gap-3 font-display text-lg font-semibold tracking-tight text-wap-ink sm:text-xl">
           <PalmMark />
-          <span>West African Produce</span>
+          <span className="truncate">West African Produce</span>
         </a>
-        <nav className="hidden items-center gap-7 text-[15px] text-wap-ink md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-7 text-[15px] text-wap-ink lg:flex" aria-label="Primary">
           {links.map((link) => (
             <a key={link.id} href={`#${link.id}`} className="text-wap-ink/70 underline-offset-4 hover:text-wap-ink hover:underline" onClick={() => scrollToId(link.id)}>
               {link.label}
             </a>
           ))}
         </nav>
-        <a href="#checkout" onClick={() => scrollToId('checkout')} className="wap-btn wap-btn-ink min-h-10 px-4 py-2 text-sm">
+        <a href="#checkout" onClick={() => scrollToId('checkout')} className="wap-btn wap-btn-ink min-h-10 shrink-0 px-4 py-2 text-sm">
           Cart ({count})
         </a>
       </div>
@@ -185,7 +185,7 @@ function Hero({ products, cart, setQuantity, onReview, loadError }) {
               <div>
                 <p className="text-sm font-semibold text-wap-palm">Organic red palm oil</p>
                 <h1>Red palm oil, ready to cook.</h1>
-                <p className="mt-2 max-w-sm text-sm leading-relaxed text-wap-muted">From small farms in Sierra Leone, bottled for kitchens in the U.S.</p>
+                <p className="mt-2 max-w-sm text-sm leading-relaxed text-wap-muted">Fruit from small farms in Sierra Leone.</p>
               </div>
               {inCart > 0 && (
                 <button type="button" onClick={onReview} className="wap-btn wap-btn-ink min-h-10 px-4 py-2 text-sm">
@@ -209,14 +209,7 @@ function Hero({ products, cart, setQuantity, onReview, loadError }) {
               ))}
             </div>
 
-            <p className="mt-3 font-display text-3xl font-bold tabular-nums" aria-live="polite">
-              {money(selectedProduct?.price_cents ?? 0)}
-              <span className="ml-2 align-middle text-sm font-sans font-semibold text-wap-muted">
-                {pack === 'case' ? selectedProduct?.unit : `each · ${volume.unit}`}
-              </span>
-            </p>
-
-            <div className="mt-4 grid items-center gap-4 border border-wap-ink/25 p-3 sm:grid-cols-[auto_1fr]">
+            <div className="wap-hero-summary mt-4 grid grid-cols-[auto_1fr] items-center gap-4 border border-wap-ink/25 p-3">
               <PackShot product={selectedProduct} size="md" decorative={false} alt={selectedProduct?.name} />
               <div>
                 <p className="text-xs font-extrabold uppercase tracking-[0.18em]">
@@ -249,7 +242,7 @@ function Hero({ products, cart, setQuantity, onReview, loadError }) {
               </p>
             )}
 
-            <div className="mt-5 grid gap-3 sm:grid-cols-[auto_1fr] sm:items-center">
+            <div className="mt-5 grid grid-cols-[auto_1fr] items-center gap-3">
               <div className="wap-qty" role="group" aria-label="Quantity">
                 <button type="button" onClick={() => setDraftQty((q) => Math.max(1, q - 1))} disabled={draftQty === 1} aria-label="Decrease quantity">−</button>
                 <span className="w-8 text-center font-semibold tabular-nums" aria-live="polite">{draftQty}</span>

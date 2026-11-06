@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { brand } from './content.js'
 import { clearStoredCart } from './cart.js'
+import { PalmMark } from './PalmMark.jsx'
 
 export function ThankYou() {
   const [state, setState] = useState({ kind: 'loading' })
@@ -38,7 +39,7 @@ export function ThankYou() {
     <div className="flex min-h-screen flex-col bg-wap-paper text-wap-ink">
       <header className="border-b border-wap-ink/10 px-5 py-4 md:px-10">
         <a href="/" className="inline-flex items-center gap-3 font-display text-xl font-semibold tracking-tight">
-          <span className="wap-mark">W</span>
+          <PalmMark />
           <span>West African Produce</span>
         </a>
       </header>

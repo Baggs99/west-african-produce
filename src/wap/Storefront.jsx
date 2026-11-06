@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { brand, categories, palmCatalogProducts, palmVolumes, pillars, priceGuides, productFamilies, recipes, wholesale } from './content.js'
 import { MAX_QTY, cartLines, cartTotalCents, money, useCart } from './cart.js'
 import { PALM_FAMILY_SHOTS, packShotFor, packShotForSizeLabel } from './media.js'
+import { PalmMark } from './PalmMark.jsx'
 
 const AVAILABILITY = {
   in_stock: { label: 'In stock', className: 'text-wap-leaf' },
@@ -90,7 +91,7 @@ function Header({ count }) {
     <header className="sticky top-0 z-40 border-b border-wap-ink/10 bg-wap-paper/92 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4 md:px-10">
         <a href="#top" className="inline-flex items-center gap-3 font-display text-xl font-semibold tracking-tight text-wap-ink">
-          <span className="wap-mark">W</span>
+          <PalmMark />
           <span>West African Produce</span>
         </a>
         <nav className="hidden items-center gap-7 text-[15px] text-wap-ink md:flex" aria-label="Primary">

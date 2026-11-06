@@ -1,4 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
   <rect width="32" height="32" rx="7" fill="#1e3a2a"/>
-  <text x="16" y="23" text-anchor="middle" font-family="Georgia, serif" font-size="18" font-weight="700" fill="#efe6d0">W</text>
+  <path d="M15.6 15.3 C15 18.4 14.7 22 15 26" stroke="#efe6d0" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M16 15 C12.5 12 8.5 12 6 14.6 C10.1 14.3 13.1 15.1 16 16.5" stroke="#efe6d0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M16 15 C14 10.8 11.5 8.8 7.7 8.6 C10.8 11.3 13.7 14 16 16.5" stroke="#efe6d0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M16 15 C16.1 10.5 18.2 7.2 22 5.5 C20.9 10.1 18.9 13.4 16 16.5" stroke="#efe6d0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M16 15 C20 11.1 24.5 11.1 27.8 13.8 C23.3 13.9 19.7 15 16 16.5" stroke="#efe6d0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M16 15 C19.4 15.1 23.4 17.6 25.8 21 C21.5 20.3 18.5 18.7 16 16.5" stroke="#efe6d0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

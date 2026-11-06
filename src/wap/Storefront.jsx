@@ -27,12 +27,12 @@ function mergeCommerceProducts(apiProducts) {
 }
 
 const HERO_PROOF = [
-  'Sourced from small farm holders',
-  'Mechanically filtered for clean flavor',
+  'Fruit from Sierra Leone smallholders',
+  'Filtered, bottled, and ready to cook',
   'Ships from Houston. Shipping calculated at checkout.',
 ]
 
-const PALM_USE_CASES = ['Stews and soups', 'Frying and sauteing', 'Sauces and rice dishes']
+const PALM_USE_CASES = ['stews', 'soups', 'rice dishes', 'beans']
 
 function scrollToId(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -202,8 +202,8 @@ function Hero({ products, cart, setQuantity, onReview, loadError }) {
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <p className="text-sm font-semibold text-wap-palm">Organic red palm oil</p>
-                <h1>Natural red palm oil.</h1>
-                <p className="mt-2 max-w-sm text-sm leading-relaxed text-wap-muted">From Sierra Leone small farm holders. For stews, frying, soups, and sauces.</p>
+                <h1>Red palm oil, ready to cook.</h1>
+                <p className="mt-2 max-w-sm text-sm leading-relaxed text-wap-muted">From Sierra Leone smallholders, bottled for kitchens in the U.S.</p>
               </div>
               {inCart > 0 && (
                 <button type="button" onClick={onReview} className="wap-btn wap-btn-ink min-h-10 px-4 py-2 text-sm">
@@ -274,7 +274,7 @@ function Hero({ products, cart, setQuantity, onReview, loadError }) {
         <div>
           <p className="font-display text-2xl font-semibold tracking-tight md:text-3xl">Need cases or pallets?</p>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-wap-paper/75">
-            Restaurants, grocers, and distributors can order pallets, cases, and private labels. A palm oil pallet holds 60 cases, with 4 gallons in each case.
+            Order bottles online, or ask us for case and pallet pricing.
           </p>
         </div>
         <button type="button" onClick={() => scrollToId('wholesale')} className="wap-btn wap-btn-gold self-start">
@@ -293,8 +293,8 @@ function Catalog() {
       <div className="mx-auto max-w-6xl px-5 py-14 md:px-10 md:py-20">
         <div className="wap-shelf-head">
           <div>
-            <p className="text-sm font-semibold text-wap-palm">The pantry</p>
-            <h2 className="mt-3 max-w-3xl font-display text-4xl font-semibold tracking-tight md:text-6xl">Oils first. Then the rest of the kitchen.</h2>
+            <p className="text-sm font-semibold text-wap-palm">Catalog</p>
+            <h2 className="mt-3 max-w-3xl font-display text-4xl font-semibold tracking-tight md:text-6xl">Palm oil is live. The pantry is next.</h2>
           </div>
           <button type="button" onClick={() => scrollToId('shop')} className="wap-btn self-start md:self-auto">
             Shop available products
@@ -309,7 +309,8 @@ function Catalog() {
                 <h3>{family.title}</h3>
               </div>
               <p className="wap-shelf-copy">{family.body}</p>
-              {family.title === 'Oils' ? (
+              {family.comingSoon && <p className="wap-coming-soon">Coming soon</p>}
+              {family.title === 'Red palm oil' ? (
                 <div className="wap-pack-rail">
                   {PALM_FAMILY_SHOTS.map((pack) => (
                     <figure key={pack.label} className="wap-pack-figure">
@@ -321,7 +322,7 @@ function Catalog() {
               ) : (
                 <div className="wap-shelf-tags">
                   {family.items.slice(0, 4).map((item) => (
-                    <span key={item}>{item}</span>
+                    <span key={item} className={family.comingSoon ? 'is-muted' : undefined}>{item}</span>
                   ))}
                 </div>
               )}
@@ -342,13 +343,13 @@ function Story() {
       <div className="grid gap-12 md:grid-cols-[0.95fr_1.05fr]">
         <p className="text-sm font-semibold text-wap-palm md:col-span-2">Our farms</p>
         <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl">
-          Grown by farmers who sell to their neighbors.
+          Palm fruit from Sierra Leone smallholders.
         </h2>
         <div className="border-l-2 border-wap-palm pl-6 text-lg leading-relaxed text-wap-ink/80 md:pl-8">
           <p>
-            We bring West African flavors to market while supporting small-scale farmers and their families. Our palm oil is pressed from fruit grown on smallholder farms in Sierra Leone.
+            West African Produce brings red palm oil to U.S. kitchens in sizes that work for home cooks, restaurants, and small retailers.
           </p>
-          <p className="mt-5">Thank you for choosing West African Produce. We look forward to serving you.</p>
+          <p className="mt-5">Smoked fish, frozen vegetables, and spices are planned for later. Palm oil is available now.</p>
         </div>
       </div>
       <div className="mt-16 grid gap-4 md:grid-cols-3">
@@ -414,7 +415,7 @@ function Shop({ products, loadError, cart, setQuantity, onReview }) {
           <p className="text-sm font-semibold text-wap-palm">Shop</p>
           <h2 className="mt-3 font-display text-5xl font-semibold tracking-tight md:text-7xl">Order online</h2>
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-wap-ink/70">
-            Use this live inventory area for customer checkout. The catalog above handles the broader product story and case pricing.
+            Palm oil is available now. Smoked fish, frozen vegetables, and spices are coming soon.
           </p>
         </div>
         {itemCount > 0 && (
@@ -435,12 +436,18 @@ function Shop({ products, loadError, cart, setQuantity, onReview }) {
             className={`text-base font-semibold pb-2 -mb-[17px] border-b-2 ${category === c.id ? 'border-wap-palm text-wap-ink' : 'border-transparent text-wap-ink/55 hover:text-wap-ink'}`}
           >
             {c.label}
+            {c.comingSoon && <span className="ml-2 text-xs text-wap-palm">Coming soon</span>}
           </button>
         ))}
       </div>
 
       {loadError && <p className="mt-8 border-l-4 border-red-600 bg-red-50 p-4 text-sm text-red-800">{loadError}</p>}
       {!products.length && !loadError && <p className="mt-10 text-wap-ink/60">Loading products…</p>}
+      {categories.find((c) => c.id === category)?.comingSoon && (
+        <p className="mt-8 border-l-4 border-wap-gold bg-wap-gold/15 p-4 text-sm font-semibold text-wap-ink">
+          {categories.find((c) => c.id === category)?.label} is coming soon. Palm oil is the product available for online ordering today.
+        </p>
+      )}
 
       <ul className="mt-8 grid gap-4">
         {visible.map((product) => (
@@ -566,9 +573,9 @@ function Recipes() {
     <section id="recipes" className="bg-wap-navy px-5 py-16 text-wap-paper md:px-10 md:py-24">
       <div className="mx-auto max-w-6xl">
         <p className="text-sm font-semibold text-wap-gold">Recipes</p>
-        <h2 className="mt-3 max-w-3xl font-display text-5xl font-semibold leading-[0.98] tracking-tight md:text-7xl">Cook with what you just bought.</h2>
+        <h2 className="mt-3 max-w-3xl font-display text-5xl font-semibold leading-[0.98] tracking-tight md:text-7xl">Cook with palm oil tonight.</h2>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-wap-paper/75">
-          Ground Nut Soup and Plassas show how these oils, smoked fish, greens, and spices work together in the pot.
+          Two simple ways to use the oil while the rest of the pantry is still coming together.
         </p>
 
         <div className="mt-12 grid gap-10 md:grid-cols-2">
@@ -582,7 +589,7 @@ function Recipes() {
                 ))}
               </div>
               <button type="button" onClick={() => scrollToId('shop')} className="wap-btn wap-btn-gold mt-7 text-sm">
-                Shop ingredients
+                Shop palm oil
               </button>
             </article>
           ))}
@@ -630,12 +637,12 @@ function WholesaleSection() {
       <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[0.9fr_1.1fr]">
         <div>
           <p className="text-sm font-semibold text-wap-gold">Wholesale</p>
-          <h2 className="mt-3 font-display text-5xl font-semibold leading-[0.98] tracking-tight md:text-6xl">A serious path for bigger buyers.</h2>
+          <h2 className="mt-3 font-display text-5xl font-semibold leading-[0.98] tracking-tight md:text-6xl">Need cases or pallets?</h2>
           <p className="mt-6 leading-relaxed text-wap-paper/76">
             {wholesale.intro} {wholesale.palletNote}
           </p>
           <div className="mt-7 grid gap-3 text-sm font-semibold text-wap-paper/80 sm:grid-cols-2">
-            {['Pallet orders', 'Case programs', 'Private labels', 'Texas + DC metro'].map((item) => (
+            {['Palm oil cases', 'Pallet quotes', 'Private-label questions', 'Texas + DC metro'].map((item) => (
               <p key={item} className="border-t border-wap-paper/20 pt-3">{item}</p>
             ))}
           </div>

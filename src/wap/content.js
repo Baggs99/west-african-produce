@@ -14,59 +14,62 @@ export const brand = {
 
 export const pillars = [
   {
-    title: 'Sustainable sourcing',
-    body: 'Our oils come from small farm holders in West Africa, then are mechanically filtered or pressed for clean flavor and quality.',
+    title: 'Smallholder fruit',
+    body: 'Our red palm oil starts with fruit grown by small farm holders in Sierra Leone.',
   },
   {
-    title: 'No needless deforestation',
-    body: 'West African Produce focuses on low-altitude crop land in sub-Sahara Africa, where palm can be grown without the plantation pressure seen elsewhere.',
+    title: 'Filtered for the kitchen',
+    body: 'The oil is mechanically filtered so it keeps its color and flavor without tasting heavy.',
   },
   {
-    title: 'Shelf and kitchen ready',
-    body: 'Retail bottles, cases, frozen vegetables, smoked fish, spices, and private-label options all sit under one produce program.',
+    title: 'Bottles and cases',
+    body: 'Buy one bottle for home, or order cases for restaurants, caterers, and small retailers.',
   },
 ]
 
 export const categories = [
   { id: 'all', label: 'All' },
   { id: 'palm-oil', label: 'Palm Oil' },
-  { id: 'smoked-fish', label: 'Smoked Fish' },
-  { id: 'frozen-vegetables', label: 'Frozen Vegetables' },
-  { id: 'spices', label: 'Spices' },
+  { id: 'smoked-fish', label: 'Smoked Fish', comingSoon: true },
+  { id: 'frozen-vegetables', label: 'Frozen Vegetables', comingSoon: true },
+  { id: 'spices', label: 'Spices', comingSoon: true },
 ]
 
 export const wholesale = {
   intro:
-    'West African Produce partners with wholesalers in Texas and the Washington DC metro area. Orders are placed by the pallet, and we offer private labeling so you can put your own brand on our products.',
-  palletNote: 'For example, a pallet of palm oil holds 60 cases, each containing 4 gallons.',
+    'Need more than a few bottles? Tell us what you need, where it is going, and when you need it.',
+  palletNote: 'We can quote palm oil by the case or pallet and discuss private labels for larger buyers.',
   interests: ['Palm oil pallet', 'Smoked fish', 'Frozen vegetables', 'Spices', 'Private label', 'Other'],
 }
 
 export const productFamilies = [
   {
-    title: 'Oils',
-    eyebrow: 'Natural and mechanically filtered',
+    title: 'Red palm oil',
+    eyebrow: 'Available now',
     body:
-      'Crude natural red palm oil from environmentally friendly low-altitude crop land in sub-Sahara Africa, plus coconut oil and ground nut oil sourced from small farm holders.',
-    items: ['Natural Red Palm Oil', 'Future RBD Red Palm Oil', 'Coconut Oil', 'Ground Nut Oil'],
+      'Natural red palm oil from Sierra Leone, bottled in four sizes and sold by the bottle or case.',
+    items: ['Natural Red Palm Oil', '16 oz', '32 oz', '1/2 gal', '1 gal'],
   },
   {
     title: 'Smoked fish',
-    eyebrow: 'Case-ready seafood',
-    body: 'A West African smoked fish line for home cooks, restaurants, and grocers.',
+    eyebrow: 'Coming soon',
+    body: 'We plan to add smoked fish once products, prices, and shipping details are ready.',
     items: ['Kuta / Barracuda', 'Kinnie / Baby Barracuda', 'Catfish', 'Grouper', 'Skit', 'Baby Shark'],
+    comingSoon: true,
   },
   {
     title: 'Frozen vegetables',
-    eyebrow: 'Greens for soups and stews',
-    body: 'Farm-sourced leaves frozen for year-round cooking.',
+    eyebrow: 'Coming soon',
+    body: 'Frozen greens are planned, but they are not available for online ordering yet.',
     items: ['Potato Leaves', 'Cassava Leaves', 'Crain Crain / Jute Leaves'],
+    comingSoon: true,
   },
   {
     title: 'Spices',
-    eyebrow: 'Pantry seasonings',
-    body: 'Everyday seasonings for West African cooking and retail shelves.',
+    eyebrow: 'Coming soon',
+    body: 'Spices are on the roadmap. Palm oil is the live product for now.',
     items: ['Curry Powder', 'Pure Ground Ginger', 'Ground Black Pepper', 'All in One Seasoning', 'Thyme', 'Cayenne Pepper'],
+    comingSoon: true,
   },
 ]
 
@@ -123,7 +126,7 @@ export const palmVolumes = [
 ]
 
 const PALM_DESCRIPTION =
-  'Sustainably sourced from small farm holders in Sierra Leone. High smoke point for frying, stews, soups, and sauces.'
+  'Natural red palm oil from Sierra Leone. Use it for stews, soups, sauces, frying, and rice dishes.'
 
 export const palmCatalogProducts = palmVolumes.flatMap((volume, index) => [
   {
@@ -186,13 +189,13 @@ export const priceGuides = [
 
 export const recipes = [
   {
-    title: 'Ground Nut Soup',
-    body: 'A rich peanut-based soup built for West African Produce ground nut oil, smoked fish, hot pepper, and greens.',
-    ingredients: ['Ground nut oil', 'Smoked fish', 'Ground ginger', 'Cayenne pepper'],
+    title: 'Palm oil rice',
+    body: 'A simple red rice base with onions, tomato, pepper, and a spoonful of palm oil for color and depth.',
+    ingredients: ['Red palm oil', 'Rice', 'Tomato', 'Onion'],
   },
   {
-    title: 'Plassas',
-    body: 'A greens-forward staple made with cassava or potato leaves, palm oil, spices, and smoked fish.',
-    ingredients: ['Red palm oil', 'Cassava leaves', 'Kuta or catfish', 'All in One Seasoning'],
+    title: 'Beans with palm oil',
+    body: 'Finish cooked beans with palm oil, onion, and pepper for a rich, everyday bowl.',
+    ingredients: ['Red palm oil', 'Beans', 'Onion', 'Hot pepper'],
   },
 ]

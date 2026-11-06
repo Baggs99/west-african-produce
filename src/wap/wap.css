@@ -107,25 +107,25 @@ a {
   fill: var(--color-wap-palm);
 }
 
-.wap-palm-tree {
-  transform-origin: 24px 38px;
+.wap-palm-leaf {
+  transform-origin: 13px 31px;
   animation: wap-palm-sway 3.8s ease-in-out infinite;
 }
 
-.wap-palm-trunk,
-.wap-palm-fronds {
+.wap-palm-rib,
+.wap-palm-leaflet {
   fill: none;
   stroke: var(--color-wap-paper);
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.wap-palm-trunk {
-  stroke-width: 3.2;
+.wap-palm-rib {
+  stroke-width: 3;
 }
 
-.wap-palm-fronds {
-  stroke-width: 2.7;
+.wap-palm-leaflet {
+  stroke-width: 2.4;
 }
 
 @keyframes wap-palm-sway {
@@ -505,7 +505,7 @@ a {
 
   .wap-rise,
   .wap-rise-delay,
-  .wap-palm-tree,
+  .wap-palm-leaf,
   .wap-stack-card {
     animation: none;
   }

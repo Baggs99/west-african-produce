@@ -785,9 +785,12 @@ function Footer() {
           </div>
         </div>
       </div>
-      <p className="mx-auto max-w-6xl border-t border-wap-cream/15 px-5 py-6 text-sm text-wap-cream/55 md:px-10">
-        © {new Date().getFullYear()} {brand.name}. Payments are processed by Stripe.
-      </p>
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 border-t border-wap-cream/15 px-5 py-6 text-sm text-wap-cream/55 md:px-10">
+        <p>© {new Date().getFullYear()} {brand.name}. Payments are processed by Stripe.</p>
+        <a href="/admin" className="wap-btn min-h-10 px-4 py-2 text-sm">
+          Admin
+        </a>
+      </div>
     </footer>
   )
 }

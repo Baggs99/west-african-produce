@@ -104,7 +104,7 @@ a {
 }
 
 .wap-palm-mark rect {
-  fill: #c84b17;
+  fill: #9c2e12;
 }
 
 .wap-palm-leaf {
@@ -114,18 +114,22 @@ a {
 
 .wap-palm-rib,
 .wap-palm-leaflet {
-  fill: none;
-  stroke: var(--color-wap-leaf);
+  stroke: var(--color-wap-ink);
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
+.wap-palm-leaflet {
+  fill: var(--color-wap-leaf);
+}
+
 .wap-palm-rib {
+  fill: none;
   stroke-width: 3;
 }
 
 .wap-palm-leaflet {
-  stroke-width: 2.4;
+  stroke-width: 1.4;
 }
 
 @keyframes wap-palm-sway {

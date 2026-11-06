@@ -34,29 +34,6 @@ const HERO_PROOF = [
 
 const PALM_USE_CASES = ['Stews and soups', 'Frying and sauteing', 'Sauces and rice dishes']
 
-const EDUCATION_CARDS = [
-  {
-    eyebrow: 'Why West African Produce',
-    title: 'Red palm oil should taste like origin, not warehouse.',
-    body: 'West African Produce focuses on crude natural red palm oil sourced from small farm holders, then mechanically filtered for quality before packaging.',
-  },
-  {
-    eyebrow: 'How to use it',
-    title: 'Cook hot, finish rich, build deeper color.',
-    body: 'Use palm oil for stews, soups, frying, sauces, jollof-style rice, beans, greens, and recipes where color and body matter.',
-  },
-  {
-    eyebrow: 'Retail or wholesale',
-    title: 'Buy one gallon today. Ask for pallets when shelves need supply.',
-    body: 'Retail shoppers can buy online immediately. Wholesale buyers can ask about 60-case pallets, private labels, and case pricing.',
-  },
-  {
-    eyebrow: 'From farm to Houston',
-    title: 'A simpler route for West African staples.',
-    body: 'The catalog spans oils, smoked fish, frozen greens, and spices, with sourcing and shipping details made clear before checkout.',
-  },
-]
-
 function scrollToId(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
@@ -474,36 +451,6 @@ function Shop({ products, loadError, cart, setQuantity, onReview }) {
   )
 }
 
-// ---------- Education ----------
-
-function EducationStack() {
-  return (
-    <section id="why-wap" className="bg-wap-paper px-5 py-16 md:px-10 md:py-24">
-      <div className="mx-auto max-w-6xl">
-        <div className="max-w-3xl">
-          <p className="text-sm font-semibold text-wap-palm">Why West African Produce</p>
-          <h2 className="mt-3 font-display text-5xl font-semibold leading-[0.98] tracking-tight md:text-7xl">
-            Proof after the buy button.
-          </h2>
-          <p className="mt-5 text-lg leading-relaxed text-wap-ink/70">
-            The shopping path stays fast. These cards answer the questions customers ask once they are curious about origin, usage, and wholesale.
-          </p>
-        </div>
-
-        <div className="wap-stack mt-12">
-          {EDUCATION_CARDS.map((card, index) => (
-            <article key={card.title} className="wap-stack-card" style={{ '--stack-index': index }}>
-              <p className="text-sm font-semibold text-wap-gold">{card.eyebrow}</p>
-              <h3 className="mt-4 max-w-3xl font-display text-4xl font-semibold leading-none tracking-tight md:text-6xl">{card.title}</h3>
-              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-wap-cream/78">{card.body}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 // ---------- Checkout ----------
 
 function Checkout({ products, cart, setQuantity, clear, notice }) {
@@ -856,7 +803,6 @@ export function Storefront() {
         {(Object.keys(cart).length > 0 || result) && (
           <Checkout products={commerceProducts} cart={cart} setQuantity={setQuantity} clear={clear} notice={notice} />
         )}
-        <EducationStack />
         <Recipes />
         <Story />
         <WholesaleSection />

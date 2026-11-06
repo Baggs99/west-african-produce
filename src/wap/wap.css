@@ -113,6 +113,7 @@ a {
 }
 
 .wap-palm-rib,
+.wap-palm-vein,
 .wap-palm-leaflet {
   stroke: var(--color-wap-ink);
   stroke-linecap: round;
@@ -126,6 +127,11 @@ a {
 .wap-palm-rib {
   fill: none;
   stroke-width: 3;
+}
+
+.wap-palm-vein {
+  fill: none;
+  stroke-width: 1.15;
 }
 
 .wap-palm-leaflet {

@@ -785,12 +785,9 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 border-t border-wap-cream/15 px-5 py-6 text-sm text-wap-cream/55 md:px-10">
-        <p>© {new Date().getFullYear()} {brand.name}. Payments are processed by Stripe.</p>
-        <a href="/admin" className="wap-btn min-h-10 px-4 py-2 text-sm">
-          Admin
-        </a>
-      </div>
+      <p className="mx-auto max-w-6xl border-t border-wap-cream/15 px-5 py-6 text-sm text-wap-cream/55 md:px-10">
+        © {new Date().getFullYear()} {brand.name}. Payments are processed by Stripe.
+      </p>
     </footer>
   )
 }
@@ -825,27 +822,11 @@ export function Storefront() {
       setResult({ kind: 'cancelled' })
       return
     }
-    if (state !== 'success' || !sessionId) return
-
-    let cancelled = false
-    ;(async () => {
-      // The webhook usually lands within seconds. Poll briefly so the customer sees their confirmation number.
-      for (let attempt = 0; attempt < 10 && !cancelled; attempt++) {
-        const res = await fetch(`/api/wap/order-status?session_id=${encodeURIComponent(sessionId)}`)
-        if (res.ok) {
-          const data = await res.json()
-          if (data.status !== 'awaiting_payment') {
-            clear()
-            setResult({ kind: 'success', confirmationNumber: data.confirmationNumber, email: data.email })
-            return
-          }
-        }
-        await new Promise((r) => setTimeout(r, 1500))
-      }
-      if (!cancelled) setResult({ kind: 'pending' })
-    })()
-    return () => {
-      cancelled = true
+    if (state === 'success') {
+      const thankYou = sessionId
+        ? `/thank-you/?session_id=${encodeURIComponent(sessionId)}`
+        : '/thank-you/'
+      window.location.replace(thankYou)
     }
     // One-shot read of the URL on page load.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -853,18 +834,7 @@ export function Storefront() {
 
   const notice = result && (
     <div className={`mt-10 border-l-4 p-6 ${result.kind === 'success' ? 'border-wap-leaf bg-wap-leaf/10' : 'border-wap-gold bg-wap-gold/15'}`}>
-      {result.kind === 'success' && (
-        <>
-          <p className="font-display text-3xl font-extrabold">Your order is confirmed.</p>
-          <p className="mt-2">
-            Confirmation number <strong className="tracking-wider">{result.confirmationNumber}</strong>. We sent a receipt to {result.email}.
-          </p>
-        </>
-      )}
       {result.kind === 'cancelled' && <p>Payment was cancelled. Your order is still here.</p>}
-      {result.kind === 'pending' && (
-        <p>We are still confirming your payment. If you were charged and no confirmation email arrives soon, write to {brand.email}.</p>
-      )}
     </div>
   )
   const commerceProducts = mergeCommerceProducts(products)

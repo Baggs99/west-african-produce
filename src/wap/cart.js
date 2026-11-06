@@ -13,6 +13,10 @@ function read() {
   }
 }
 
+export function clearStoredCart() {
+  localStorage.removeItem(KEY)
+}
+
 export function useCart() {
   const [cart, setCart] = useState(read)
 
@@ -29,7 +33,10 @@ export function useCart() {
       return next
     })
 
-  const clear = () => setCart({})
+  const clear = () => {
+    clearStoredCart()
+    setCart({})
+  }
 
   return { cart, setQuantity, clear }
 }

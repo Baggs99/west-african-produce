@@ -68,7 +68,7 @@ export default async function handler(req, res) {
         items: JSON.stringify(lines.map((line) => ({ sku: line.sku, q: line.quantity, p: line.unit_price_cents, n: line.name }))).slice(0, 500),
       },
       expires_at: Math.floor(expiresAt.getTime() / 1000),
-      success_url: `${origin}/?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${origin}/thank-you/?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/?checkout=cancelled#shop`,
     })
 
